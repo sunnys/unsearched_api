@@ -9,6 +9,9 @@ class User < ApplicationRecord
           :omniauthable
   include DeviseTokenAuth::Concerns::User
 	 # Assign an API key on create
+
+  has_many :my_memories , dependent: :destroy
+
   before_create do |user|
     user.api_key = user.generate_api_key
   end

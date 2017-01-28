@@ -10,7 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022132204) do
+ActiveRecord::Schema.define(version: 20161124110309) do
+
+  create_table "locations", force: :cascade do |t|
+    t.float    "lat"
+    t.float    "log"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "melocations", force: :cascade do |t|
+    t.integer  "location_id"
+    t.integer  "my_memory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "my_memories", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "theme_id"
+    t.integer  "location_id"
+    t.string   "title"
+    t.text     "description"
+    t.date     "memory_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "image"
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "color"
+    t.string   "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false

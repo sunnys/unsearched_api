@@ -40,3 +40,6 @@ gem 'rack-attack'
 gem 'omniauth'
 gem 'devise'
 gem 'devise_token_auth'
+#File Upload Manage
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'rmagick'
