@@ -8,10 +8,23 @@ module Api::Api::V1
 		end
 
 		def user_memories
-			@user_memories = MyMemory.where(user_id: params[:user_id])
+			@user_memories = []
+			MyMemory.where(user_id: params[:user_id]).each do |mm|
+				um = {}
+				um[:id] = mm.id
+				um[:title] = mm.title
+				um[:description] = mm.description
+				um[:theme_id] = mm.theme_id
+				um[:theme_color] = Theme.find(mm.theme_id).color
+				um[:locations] = mm.locations
+				@user_memories << um
+			end
 			render json: @user_memories
 		end
 
+		def show
+			render :json => @my_memory
+		end
 
 		def create
 			# @user_memory = MyMemory.create!(params[:my_memories])
@@ -40,7 +53,7 @@ module Api::Api::V1
 
 	      # Only allow a trusted parameter "white list" through.
 	      def my_memory_params
-	        params.require(:my_memory).permit(:title, :description, :memory_date, :user_id, :theme_id, :location_id, :image, locations_attributes: [:id, :_destroy, :name, :lat, :lon])
+	        params.require(:my_memory).permit(:title, :description, :memory_date, :user_id, :theme_id, :location_id, :image, locations_attributes: [:id, :_destroy, :name, :lat, :log])
 	      end
 	end
 end
